@@ -9,22 +9,19 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
-const db_connect = require('./db_connect');
+require('dotenv').config();
+
 
 const db = knex({
-  client: db_connect.client,
-  connection: db_connect.connection
-
-  // client: '',
-  // connection: {
-  //   host : '127.0.0.1',
-  //   user : 'username',
-  //   password : 'your_password',
-  //   database : 'your_database'
-  // }
+  client: process.env.DB_CLIENT,
+  connection: {
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password : process.env.DB_PASS,
+    database : process.env.DB_NAME
+  }
 
 });
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -39,6 +36,7 @@ app.post('/signin', (req, res) => {  signin.handleSignin(req, res, db, bcrypt) }
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.get('/profile/:id', (req, res) => { profile.handleProfile(req, res, db) })
 app.put('/image', (req, res) => { image.handleImage(req, res, db) })
+app.post('/imageurl', (req, res) => { image.handleApiCall(req, res) })
 
 
 app.listen(4000, () => {
