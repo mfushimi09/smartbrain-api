@@ -14,6 +14,15 @@ const db_connect = require('./db_connect');
 const db = knex({
   client: db_connect.client,
   connection: db_connect.connection
+
+  // client: '',
+  // connection: {
+  //   host : '127.0.0.1',
+  //   user : 'username',
+  //   password : 'your_password',
+  //   database : 'your_database'
+  // }
+
 });
 
 
