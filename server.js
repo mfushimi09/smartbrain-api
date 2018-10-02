@@ -32,8 +32,6 @@ app.use(cors());
 
 
 app.get('/', (req, res) => {
-  // console.log(req);
-  // res.send("this is working");
   res.status(200).json();
 })
 
